@@ -1,0 +1,32 @@
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg" class="icon">
+ <defs>
+  <style type="text/css"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_14" d="m890.888598,401.895935l173.554996,-26.340679" opacity="0.5" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="null" fill="#FFFFFF"/>
+  <line stroke="null" stroke-linecap="null" stroke-linejoin="null" id="svg_15" y2="70.785078" x2="1015.332973" y1="35.22955" x1="4.222657" fill-opacity="null" stroke-opacity="null" stroke-width="NaN" fill="none"/>
+  <rect stroke="null" id="svg_16" height="1035.554789" width="66.666619" y="-6.992621" x="-0.221832" stroke-width="NaN" fill="#999999"/>
+  <rect stroke="null" id="svg_17" height="68.888836" width="1019.999311" y="-0.325978" x="6.444832" stroke-opacity="null" stroke-width="NaN" fill="#999999"/>
+  <rect id="svg_18" height="24.444426" width="71.111056" y="35.22955" x="679.777649" stroke-opacity="null" stroke-width="NaN" stroke="null" fill="#999999"/>
+  <rect id="svg_19" height="15.555544" width="93.333262" y="41.896211" x="446.444495" stroke-opacity="null" stroke-width="NaN" stroke="null" fill="#999999"/>
+  <rect stroke="null" id="svg_20" height="1035.554789" width="66.666619" y="-4.7704" x="957.555207" stroke-opacity="null" stroke-width="NaN" fill="#999999"/>
+  <rect stroke="null" id="svg_21" height="68.888836" width="1019.999311" y="955.228831" x="4.222611" stroke-opacity="null" stroke-width="NaN" fill="#999999"/>
+  <rect stroke="null" id="svg_25" height="64.444395" width="431.110779" y="308.562653" x="66.444789" stroke-width="NaN" fill="#009ddd"/>
+  <rect stroke="null" id="svg_28" height="64.444395" width="433.333043" y="441.895889" x="64.222523" stroke-width="NaN" fill="#BBBBBB"/>
+  <rect id="svg_29" height="64.444395" width="431.11078" y="577.451351" x="64.222566" stroke-width="NaN" stroke="null" fill="#BBBBBB"/>
+  <rect id="svg_31" height="64.444395" width="431.11078" y="308.562653" x="526.44442" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+  <rect id="svg_32" height="64.444395" width="431.11078" y="441.895889" x="526.444442" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+  <rect id="svg_33" height="64.444395" width="431.11078" y="577.451339" x="528.66664" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+  <rect id="svg_34" height="64.444395" width="431.11078" y="708.562339" x="528.666649" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+  <path stroke="null" stroke-width="NaN" id="svg_4" class="selected" fill="#BBBBBB" d="m498.333667,547.205209l0,-130.97361c0,-11.878226 -10.660754,-21.506652 -23.811047,-21.506652l-0.480971,0c-12.655428,0 -22.999945,8.918529 -23.761428,20.175894c-0.761482,-11.257365 -11.106,-20.175894 -23.761428,-20.175894l-0.480971,0c-13.150292,0 -23.811047,9.629024 -23.811047,21.506652c0,-11.877628 -10.660754,-21.506652 -23.811047,-21.506652l-0.480971,0c-10.580702,0 -19.545819,6.236098 -22.64666,14.859435l0,-49.055796c0,-17.173772 -10.660093,-31.096238 -23.811047,-31.096238l-0.480971,0c-13.150954,0 -23.811708,13.922466 -23.811708,31.096238l0,143.663317c0,23.755855 21.321508,43.013904 47.622755,43.013904l0.480971,0"/>
+  <rect id="svg_36" height="64.444395" width="431.11078" y="841.895573" x="528.666649" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+  <rect id="svg_37" height="162.222098" width="835.554914" y="110.78503" x="86.444771" stroke-width="NaN" stroke="null" fill="#BBBBBB"/>
+  <rect stroke="null" id="svg_38" height="104.444354" width="782.2216" y="139.673905" x="113.111446" stroke-width="NaN" fill="#ffffff"/>
+  <path id="svg_40" d="m297.55572,168.562764" opacity="0.5" stroke-width="NaN" stroke="null" fill="#009ddd"/>
+ </g>
+</svg>
