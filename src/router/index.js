@@ -75,6 +75,34 @@ export const asyncRoutes = [
         hidden: true
       }
     ]
+  },
+  {
+    path: '/dictionary',
+    component: Layout,
+    meta: { title: '字典表管理', icon: 'form' },
+    redirect: '/dictionary/dict-list',
+    children: [
+      {
+        path: 'dict-list',
+        name: 'Dict-list',
+        component: () => import('@/views/dictionary/index'),
+        meta: { title: '字典表', icon: 'form' }
+      },
+      {
+        path: 'dict-add',
+        name: 'Dict-add',
+        component: () => import('@/views/dictionary/dict-add'),
+        meta: { title: '新增字典', icon: 'form' },
+        hidden: true
+      },
+      {
+        path: 'dict-edit',
+        name: 'Dict-edit',
+        component: () => import('@/views/dictionary/dict-edit'),
+        meta: { title: '编辑字典', icon: 'form' },
+        hidden: true
+      }
+    ]
   }
 ]
 
