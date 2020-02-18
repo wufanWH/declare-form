@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/dev_api': {
-        target: 'http://172.20.10.2:8080',
+        target: 'http://172.20.10.6:8080',
+        // target: 'http://172.20.10.2:8080',
         // secure: false,  // 如果是https接口，需要配置这个参数
         changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
         pathRewrite: {

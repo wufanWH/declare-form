@@ -14,8 +14,9 @@
       <el-table-column
         v-if="canSelect"
         type="selection"
-        width="30"
-        align='center'/>
+        width="50"
+        align='center'
+        :selectable="checkSelectable"/>
       <el-table-column v-for="(column, index) in columns" :key="column.value" :label="column.text"
         :width="column.width" :align="index === 0 ? '' : 'center'" :render-header="renderHeader"
         :sortable="column.sortable">
@@ -50,6 +51,12 @@ export default {
     tableData: {
       type: [Array, Object],
       required: true
+    },
+    checkedCondition: {
+      type: String
+    },
+    checkedAble: {
+      type: Number
     },
     columns: {
       type: Array,
@@ -147,6 +154,13 @@ export default {
     },
     handleSortChange (val) {
       this.$emit('handleSortChange', { sortData: val })
+    },
+    checkSelectable (row) {
+      if (this.checkedCondition && this.checkedAble) {
+        return row[this.checkedCondition] === this.checkedAble
+      } else {
+        return true
+      }
     },
     scopeValue (scope) {
       console.log(scope)

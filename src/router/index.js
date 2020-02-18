@@ -77,6 +77,69 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/template',
+    component: Layout,
+    meta: { title: '模板管理', icon: 'form' },
+    redirect: '/template/template-list',
+    children: [
+      {
+        path: 'template-list',
+        name: 'TemplateList',
+        component: () => import('@/views/template/index'),
+        meta: { title: '模板管理', icon: 'form' }
+      },
+      {
+        path: 'template-add',
+        name: 'Template-add',
+        component: () => import('@/views/template/template-add'),
+        meta: { title: '新增模版', icon: 'form' },
+        hidden: true
+      },
+      {
+        path: 'template-edit',
+        name: 'Template-edit',
+        component: () => import('@/views/template/template-edit'),
+        meta: { title: '配置模板字段', icon: 'form' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/field-name',
+    component: Layout,
+    meta: { title: '字段管理', icon: 'form' },
+    redirect: '/field-name/field-list',
+    children: [
+      {
+        path: 'field-list',
+        name: 'FieldList',
+        component: () => import('@/views/field-name/index'),
+        meta: { title: '字段管理', icon: 'form' }
+      },
+      {
+        path: 'field-add',
+        name: 'Field-add',
+        component: () => import('@/views/field-name/field-add'),
+        meta: { title: '新增字段', icon: 'form' },
+        hidden: true
+      },
+      {
+        path: 'field-edit',
+        name: 'Field-edit',
+        component: () => import('@/views/field-name/field-edit'),
+        meta: { title: '修改字段', icon: 'form' },
+        hidden: true
+      },
+      {
+        path: 'field-info',
+        name: 'Field-info',
+        component: () => import('@/views/field-name/field-info'),
+        meta: { title: '查看字段信息', icon: 'form' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/dictionary',
     component: Layout,
     meta: { title: '字典表管理', icon: 'form' },
