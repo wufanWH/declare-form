@@ -1,5 +1,24 @@
 <template>
   <div class="base-component-container">
+    <div class="fixed-header">
+      <div v-if="!isEdit" class="header-left">
+        新增动态模版
+        <el-dropdown :hide-on-click="true" trigger="click" class="add-more">
+          <span class="icon-more">
+            <i class="el-icon-more"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="dropNew">放弃新增</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <div v-else class="header-left">
+        编辑动态模版
+      </div>
+      <div class="header-right">
+        <el-button class="right-save" type="primary" @click="saveForm">保存</el-button>
+      </div>
+    </div>
     <el-container>
       <el-aside>
         <div class="toolbar-container">
@@ -11,7 +30,8 @@
           </div>
           <ul class="step-list" style="overflow:auto"
            infinite-scroll-immediate>
-            <li v-for="(item, index) in toolbarForm.pageList" class="step-list-item" :key="index">{{ item }}</li>
+            <li v-for="(item, index) in toolbarForm.pageList" class="step-list-item" :key="index">{{ item.name }}</li>
+            <li><div class="tool-page-add-font"><i class="el-icon-plus"></i></div></li>
           </ul>
           <div class="tool-model">
             元件库
@@ -28,12 +48,12 @@
             模版
           </div>
           <ul class="step-list" style="overflow:auto">
-            <li v-for="(item, index) in toolbarForm.templateList" class="step-list-item" :key="index">{{ item }}</li>
+            <li v-for="(item, index) in toolbarForm.templateList" class="step-list-item" :key="index">{{ item.name }}</li>
           </ul>
-          <div class="tool-model">
+          <div class="tool-model" v-show="false">
             示例
           </div>
-          <ul class="step-list" v-infinite-scroll="load" style="overflow:auto">
+          <ul class="step-list" v-show="false" v-infinite-scroll="load" style="overflow:auto">
             <li v-for="i in count" class="step-list-item" :key="i">{{ i }}</li>
           </ul>
         </div>
@@ -42,20 +62,18 @@
         <el-main>
           <div class="el-main-container">
             <el-form ref="dynamicForm" label-position="left" :model="dynamicForm" :rules="dynamicRules" auto-complete="on">
-              <div class="info-container">
-                <div v-for="(item, index) in templateForm" :key="index">
-                  <el-form-item :label-width="(item.keyDescribe.length * 16 + 10) + 'px'" :label="item.keyDescribe" v-if="item.lineNum === 1"
-                    :prop="item.keyName">
-                    <component v-bind:is="item.element"></component>
-                  </el-form-item>
-                  <el-form-item v-else>
-                    <el-col :span="24 / item.lineNum" v-for="(cItem, index) in item.children" :key="index">
-                      <el-form-item :label-width="(cItem.keyDescribe.length * 16 + 10) + 'px'" :label="cItem.keyDescribe" :prop="cItem.keyName">
-                        <component v-bind:is="cItem.element"></component>
-                      </el-form-item>
-                    </el-col>
-                  </el-form-item>
-                </div>
+              <div v-for="(item, index) in templateForm" :key="index">
+                <el-form-item :label-width="(item.keyDescribe.length * 16 + 10) + 'px'" :label="item.keyDescribe" v-if="item.lineNum === 1"
+                  :prop="item.keyName">
+                  <component v-bind:is="item.element"></component>
+                </el-form-item>
+                <el-form-item v-else>
+                  <el-col :span="24 / item.lineNum" v-for="(cItem, index) in item.children" :key="index">
+                    <el-form-item :label-width="(cItem.keyDescribe.length * 16 + 10) + 'px'" :label="cItem.keyDescribe" :prop="cItem.keyName">
+                      <component v-bind:is="cItem.element"></component>
+                    </el-form-item>
+                  </el-col>
+                </el-form-item>
               </div>
             </el-form>
           </div>
@@ -69,19 +87,40 @@
 
 <script>
 import comParams from '@/views/dynamic-form/components/ComParams'
+import textArea from '@/components/BaseComponents/TextArea'
 
 export default {
-  components: { comParams },
+  components: { comParams, textArea },
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       count: 0,
       toolbarForm: {
-        pageList: [],
+        pageList: [
+          {
+            name: '个人信息及工作经历',
+            step: 1
+          },
+          {
+            name: '主要作品及成就',
+            step: 2
+          }
+        ],
         componentList: [
           {
             name: '输入框',
             icon: 'input',
             type: 'el-input'
+          },
+          {
+            name: '文本框',
+            icon: 'textarea',
+            type: 'text-area'
           },
           {
             name: '单选框',
@@ -124,7 +163,17 @@ export default {
             type: 'el-table'
           }
         ],
-        templateList: []
+        templateList: [
+          {
+            name: '个人信息'
+          },
+          {
+            name: '学习经历'
+          },
+          {
+            name: '主要成就'
+          }
+        ]
       },
       templateForm: [],
       dynamicForm: {},
@@ -137,6 +186,21 @@ export default {
     }
   },
   methods: {
+    dropNew () {
+      this.$confirm('确定放弃新增？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$router.go(-1)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '继续新增'
+        })
+      })
+    },
+    saveForm () {},
     load () {
       this.count += 2
     },
@@ -153,17 +217,18 @@ export default {
       this.dialogForm.compDetail['lineNum'] = val.data.lineNum
       if (val.data.lineNum === 1) {
         let data = Object.assign({}, this.dialogForm.compDetail)
-        console.log('********', this.templateForm)
         this.templateForm.push(data)
       } else {
-        let data = {}
-        data['lineNum'] = val.data.lineNum
-        if (data['children']) {
-          data['children'].push(Object.assign({}, this.dialogForm.compDetail))
+        if (this.templateForm.length > 0 && this.templateForm[this.templateForm.length - 1].lineNum > 1 &&
+        this.templateForm[this.templateForm.length - 1].lineNum > this.templateForm[this.templateForm.length - 1].children.length &&
+        val.data.lineNum === this.templateForm[this.templateForm.length - 1].lineNum) {
+          this.templateForm[this.templateForm.length - 1]['children'].push(Object.assign({}, this.dialogForm.compDetail))
         } else {
+          let data = {}
+          data['lineNum'] = val.data.lineNum
           data['children'] = [Object.assign({}, this.dialogForm.compDetail)]
+          this.templateForm.push(data)
         }
-        this.templateForm.push(data)
       }
     }
   }
@@ -174,10 +239,58 @@ export default {
 .base-component-container {
   min-height: calc(100vh - 64px);
   background: #f0f2f5;
+  .el-input__inner {
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    border-style: none none solid none
+  }
   aside {
     margin: 0;
     padding: 20px;
     line-height: 100%;
+  }
+  .el-main {
+    padding: 20px 20px 20px 0;
+  }
+  .fixed-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    .add-more {
+      margin-left: 20px;
+      font-size: 20px;
+      color: #ccc;
+    }
+    .header-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px 0 10px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      width: 40%;
+    }
+    .icon-more {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    .header-right {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px 20px 10px 0px;
+      width: 60%;
+    }
+    .right-save {
+      font-size: 16px;
+    }
   }
   .toolbar-container {
     background: #fff;
@@ -205,6 +318,14 @@ export default {
       flex-direction: column;
       height: 200px;
       padding: 0;
+      .tool-page-add-font {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #009ddd;
+        font-size: 20px;
+        height: 35px;
+      }
     }
     .step-list-row {
       flex-direction: row;
@@ -246,18 +367,20 @@ export default {
       width: 130px;
       text-align: center;
     }
+    .step-list li:hover {
+      background: #c6ecf9;
+    }
     .step-list-row li:hover {
       background: #c6ecf9;
       border: 0.5px solid #009edb;
     }
   }
   .el-main-container {
-    .info-container {
-      padding: 20px;
-      background: #fff;
-      margin: 0 0 20px 0;
-      font-size: 14px
-    }
+    min-height: 824px;
+    padding: 20px;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px;
   }
 }
 </style>

@@ -28,7 +28,15 @@ var api = {
   template_field_add: `${baseUrl}/api/template_field/create`, // 模板字段新增
   template_field_edit: `${baseUrl}/api/template_field/update`, // 模板字段修改
   template_field_delete: `${baseUrl}/api/template_field/deletes`, // 模板字段删除
-  template_field_clear: `${baseUrl}/api/template_field/clear` // 模板字段清空
+  template_field_clear: `${baseUrl}/api/template_field/clear`, // 模板字段清空
+  // 字典表
+  getDict: `${baseUrl}/api/tmpdic/query`,
+  getDictByCode: `${baseUrl}/api/tmpdic/queryByCode`,
+  gitAllDictByCode: `${baseUrl}/api/tmpdic/queryAllByCode`,
+  saveDict: `${baseUrl}/api/tmpdic/save`,
+  updateDict: `${baseUrl}/api/tmpdic/update`,
+  deleteDict: `${baseUrl}/api/tmpdic/`,
+  getDictDetail: `${baseUrl}/api/tmpdic/`
 }
 
 export default api

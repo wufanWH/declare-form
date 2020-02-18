@@ -1,1 +1,21 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1581314709782" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9192" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128"><defs><style type="text/css"></style></defs><path d="M222.830565 208.372093h577.488372v85.049834H222.830565z" p-id="9193" data-spm-anchor-id="a313x.7781069.0.i29" class="" fill="#009ddd"></path><path d="M474.578073 258.551495h85.049834v557.076412h-85.049834z" p-id="9194" data-spm-anchor-id="a313x.7781069.0.i28" class="" fill="#009ddd"></path><path d="M1022.299003 1022.299003h-1020.598006v-1020.598006h1020.598006z m-935.548172-85.049834h850.498338v-850.498338h-850.498338z" p-id="9195" data-spm-anchor-id="a313x.7781069.0.i31" class="selected" fill="#989898"></path></svg>
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg" class="icon">
+ <defs>
+  <style type="text/css"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="2927.663645" height="2927.663645" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path fill="#FFFFFF" stroke="null" stroke-width="null" stroke-opacity="null" fill-opacity="null" opacity="0.5" d="m890.8886,401.89594l173.55499,-26.34068" id="svg_14"/>
+  <line fill="none" stroke-width="NaN" stroke-opacity="null" fill-opacity="null" x1="4.222657" y1="35.22955" x2="1015.332973" y2="70.785078" id="svg_15" stroke-linejoin="null" stroke-linecap="null" stroke="null"/>
+  <rect fill="#999999" stroke-width="NaN" x="-0.221832" y="-6.992621" width="66.666619" height="1035.554789" id="svg_16" stroke="null"/>
+  <rect fill="#999999" stroke-width="NaN" stroke-opacity="null" x="6.444832" y="-0.325978" width="1019.999311" height="68.888836" id="svg_17" stroke="null"/>
+  <rect fill="#999999" stroke="null" stroke-width="NaN" stroke-opacity="null" x="679.777649" y="35.22955" width="71.111056" height="24.444426" id="svg_18"/>
+  <rect fill="#999999" stroke="null" stroke-width="NaN" stroke-opacity="null" x="446.444495" y="41.896211" width="93.333262" height="15.555544" id="svg_19"/>
+  <rect fill="#999999" stroke-width="NaN" stroke-opacity="null" x="957.555207" y="-4.7704" width="66.666619" height="1035.554789" id="svg_20" stroke="null"/>
+  <rect fill="#999999" stroke-width="NaN" stroke-opacity="null" x="4.222611" y="955.228831" width="1019.999311" height="68.888836" id="svg_21" stroke="null"/>
+  <text stroke="null" transform="matrix(3.8305012064591333,0,0,3.7872619388176254,-1350.3422047363013,-1044.295617877406) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="250" id="svg_3" y="499.756656" x="403.555142" stroke-width="0" fill="#009ddd">A</text>
+ </g>
+</svg>
