@@ -16,6 +16,9 @@ import './utils/error-log'
 
 import * as filters from './filters'
 
+import api from '@/api'
+Vue.prototype.$api = api
+
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium'
 })
