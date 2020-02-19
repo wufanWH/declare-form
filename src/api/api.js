@@ -48,7 +48,8 @@ var api = {
   business_form_byId: `${baseUrl}/api/service_form/`,
   business_form_add: `${baseUrl}/api/service_form/create`,
   business_form_edit: `${baseUrl}/api/service_form/update`,
-  business_form_delete: `${baseUrl}/api/service_form/deletes`
+  business_form_delete: `${baseUrl}/api/service_form/deletes`,
+  business_form_createjson: `${baseUrl}/api/service_form/generateJson/`
 }
 
 export default api

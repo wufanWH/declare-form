@@ -42,6 +42,8 @@
           <el-button @click="handleClick(props.scope.id)" type="text">编辑</el-button>
           <span style="font-size: 9px; color: #999">|</span>
           <el-button @click="deleteBusinessForm(props.scope.id)" type="text">删除</el-button>
+          <span style="font-size: 9px; color: #999">|</span>
+          <el-button @click="createBusinessFormJson(props.scope.id)" type="primary">生成JSON</el-button>
         </template>
       </pagination-table>
     </div>
@@ -229,6 +231,28 @@ export default {
         this.$message({
           type: 'info',
           message: '已取消删除'
+        })
+      })
+    },
+    createBusinessFormJson (id) {
+      this.$confirm('此操作将生成业务表单JSON模板, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$api.businessform.createBusinessFormJson(id).then(res => {
+          if (res.code === 0 && res.success) {
+            this.$alert('生成JSON成功')
+          } else {
+            this.$alert('生成JSON失败')
+          }
+        }).catch(err => {
+          console.log('生成JSON', err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消生成JSON'
         })
       })
     },

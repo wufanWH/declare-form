@@ -80,6 +80,13 @@ const businessform = {
       method: 'delete',
       params
     })
+  },
+  // 业务表单生成json
+  createBusinessFormJson (id) {
+    return request({
+      url: api.business_form_createjson + id,
+      method: 'get'
+    })
   }
 }
 export default businessform
