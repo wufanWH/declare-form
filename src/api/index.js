@@ -8,10 +8,13 @@ import field from '@/api/field'
 import template from '@/api/template'
 // 字典管理
 import dictionary from '@/api/dictionary'
+// 业务表单管理
+import businessform from '@/api/businessform'
 
 // 导出接口
 export default {
   field,
   template,
-  dictionary
+  dictionary,
+  businessform
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="template-container" style="min-height: calc(100vh - 64px); background: #f0f2f5">
     <div style="background-color: #fff; padding-top: 10px">
-      <el-button type="primary" style="margin-left: 20px" @click="addDynamicForm">新增字段</el-button>
+      <el-button type="primary" style="margin-left: 20px" @click="handleClick('')">新增表单</el-button>
       <el-button v-if="pageForm.selections.length === 0" type="text" style="color: #999; margin-left: 10px">批量操作</el-button>
       <el-dropdown v-else trigger="click" @command="operations" style="margin-left: 10px">
         <span class="el-dropdown-link">
@@ -14,7 +14,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <sizer style="margin: 20px" :search="true" :content="0">
-        <el-input slot="card-search" placeholder="请输入字段名称" v-model="sizerForm.searchContent">
+        <el-input slot="card-search" placeholder="请输入表单名称" v-model="sizerForm.searchContent">
           <el-button slot="append" size="mini" @click="searchByTitle">搜  索</el-button>
         </el-input>
         <!-- <div slot="self-definition">
@@ -23,33 +23,31 @@
         </div> -->
         <div slot="card-bottom" class="card-bottom">当前数据总量：<span style="color: #1890ff">{{ pageForm.total }}</span>条</div>
       </sizer>
-      <pagination-table ref="author-list-id" style="padding: 10px" :loading="pageForm.loading" checkedCondition="isstatic" :checkedAble="2"
+      <pagination-table ref="author-list-id" style="padding: 10px" :loading="pageForm.loading"
         :tableData="pageForm.tableData" :columns="columns" :total="pageForm.total" :page.sync="pageForm.page"
-        :limit.sync="pageForm.limit" @paginationTable="getFeildList" @handleSelectionChange="handleSelectionChange">
+        :limit.sync="pageForm.limit" @paginationTable="getBusinessFormList" @handleSelectionChange="handleSelectionChange">
         <span slot="cell-text-content-0" slot-scope="props" class="no-wrap-text">
-          {{ props.scope.name }}
+          {{ props.scope.formName }}
         </span>
-        <span slot="cell-text-content-1" slot-scope="props" class="no-wrap-text">
-          {{ props.scope.code }}
+        <span slot="cell-text-content-1" slot-scope="props">
+          {{ props.scope.isOpen === 1 ? '是':'否' }}
         </span>
-        <span slot="cell-text-content-2" slot-scope="props">
-          {{ props.scope.isstatic==1?'是':'否' }}
+        <span slot="cell-text-content-2" slot-scope="props" class="no-wrap-text">
+          {{ props.scope.createBy }}
         </span>
-        <span slot="cell-text-content-3" slot-scope="props">
-          {{ getFieldTypeName (props.scope.fieldType) }}
+        <span slot="cell-text-content-3" slot-scope="props" class="no-wrap-text">
+          {{ props.scope.createDate }}
         </span>
         <template slot="cell-content-4" slot-scope="props">
-          <div v-if="props.scope.isstatic===2">
-            <el-button @click="handleEditClick(props.scope.id)" type="text">编辑</el-button>
-            <span style="font-size: 9px; color: #999">|</span>
-            <el-button @click="handleDeleteClick(props.scope.id)" type="text">删除</el-button>
-          </div>
-          <div v-else>
-            <el-button @click="handleInfoClick(props.scope.id)" type="text">查看</el-button>
-          </div>
+          <el-button @click="handleClick(props.scope.id)" type="text">编辑</el-button>
+          <span style="font-size: 9px; color: #999">|</span>
+          <el-button @click="deleteBusinessForm(props.scope.id)" type="text">删除</el-button>
         </template>
       </pagination-table>
     </div>
+    <el-dialog title="表单新增/修改" :visible.sync="dialogVisible" width="42%">
+      <dialog-form v-if="dialogVisible" :is-edit="isBusinessFormEdit" :dialog-id="dialogId" @cancel="cancel" @refreshList="getBusinessFormList"></dialog-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -57,11 +55,15 @@
 import paginationTable from '@/components/PaginationTable'
 import sizer from '@/components/Sizer'
 import radioButton from '@/components/RadioButton'
-
+import dialogForm from '@/views/business-form/components/dialog-form'
 export default {
-  components: { paginationTable, sizer, radioButton },
+  components: { paginationTable, sizer, radioButton, dialogForm },
   data () {
     return {
+      fieldStatus: false,
+      dialogVisible: false,
+      isBusinessFormEdit: false,
+      dialogId: '',
       sizerForm: {
         searchContent: null,
         authorTypeIdx: null,
@@ -72,16 +74,16 @@ export default {
       },
       columns: [
         {
-          text: '字段名称'
+          text: '表单名称'
         },
         {
-          text: '字段编码'
+          text: '是否启用'
         },
         {
-          text: '静态字段'
+          text: '创建人'
         },
         {
-          text: '字段类型'
+          text: '创建时间'
         },
         {
           text: '操作'
@@ -94,66 +96,45 @@ export default {
         loading: false,
         selections: [],
         tableData: []
-      }
+      },
+      currentBusinessId: ''
     }
   },
   created () {
-    this.getFeildList()
+    this.currentBusinessId = this.$route.query.businessId || ''
+    this.getBusinessFormList()
   },
   methods: {
-    addDynamicForm () {
-      this.$router.push({
-        path: '/field-name/field-add'
-      })
-    },
-    handleEditClick (id) {
-      this.$router.push({
-        path: '/field-name/field-edit',
-        query: {
-          fieldId: id
-        }
-      })
-    },
-    handleInfoClick (id) {
-      this.$router.push({
-        path: '/field-name/field-info',
-        query: {
-          fieldId: id
-        }
-      })
-    },
-    handleDeleteClick (id) {
-      const resData = {
-        ids: id
+    handleClick (id) {
+      if (id) {
+        this.dialogId = id
+        this.isBusinessFormEdit = true
+        this.dialogVisible = true
+      } else {
+        this.dialogId = ''
+        this.isBusinessFormEdit = false
+        this.dialogVisible = true
       }
-      this.$confirm('确定删除该字段？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$api.field.fieldDeleteCondition(resData).then(res => {
-          if (res.code === 0) {
-            this.deleteField(resData)
-          } else {
-            this.$alert('该字段已绑定模板不可删除')
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+      console.log()
+    },
+    cancel () {
+      this.dialogVisible = false
+    },
+    commandValue (command, id) {
+      return {
+        command: command,
+        id: id
+      }
     },
     searchByTitle () {
       this.pageForm.page = 1
-      this.getFeildList()
+      this.getBusinessFormList()
     },
     handleAuthorType (val) {
       this.pageForm.page = 1
       this.sizerForm.authorType.sortSelected = val.currentIdx
       this.sizerForm.authorTypeIdx = val.currentIdx - 1 < 0 ? null : val.currentIdx - 1
-      this.getFeildList()
+      this.getBusinessFormList()
     },
     handleSelectionChange (val) {
       this.pageForm.selections = val.selections
@@ -173,12 +154,15 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            this.$api.field.fieldDeleteCondition(resData).then(res => {
-              if (res.code === 0) {
-                this.deleteField(resData)
+            this.$api.businessform.businessFormDelete(resData).then(res => {
+              if (res.code === 0 && res.success) {
+                this.$alert('删除成功')
+                this.getBusinessFormList()
               } else {
-                this.$alert('该字段已绑定模板不可删除')
+                this.$alert('删除失败')
               }
+            }).catch(err => {
+              console.log('删除模板', err)
             })
           }).catch(() => {
             this.$message({
@@ -189,20 +173,7 @@ export default {
           break
       }
     },
-    // 删除字段
-    deleteField (resData) {
-      this.$api.field.fieldDelete(resData).then(res => {
-        if (res.code === 0 && res.success) {
-          this.$alert('删除成功')
-          this.getFeildList()
-        } else {
-          this.$alert('删除失败')
-        }
-      }).catch(err => {
-        console.log('删除字段', err)
-      })
-    },
-    getFeildList (val) {
+    getBusinessFormList (val) {
       if (val) {
         this.pageForm.page = val.page
         this.pageForm.limit = val.limit
@@ -211,16 +182,18 @@ export default {
         this.pageForm.limit = 10
       }
 
-      let feildRequestData = {
+      let requestData = {
         page: this.pageForm.page,
         pageSize: this.pageForm.limit
       }
+      if (this.currentBusinessId) {
+        requestData.serviceFk = this.currentBusinessId
+      }
       if (this.sizerForm.searchContent) {
-        feildRequestData.name = this.sizerForm.searchContent
+        requestData.name = this.sizerForm.searchContent
       }
       this.loading = true
-      console.log(feildRequestData)
-      this.$api.field.getFieldList(feildRequestData).then(res => {
+      this.$api.businessform.getBusinessFormList(requestData).then(res => {
         console.log(res)
         this.loading = false
         if (res.code === 0) {
@@ -233,35 +206,31 @@ export default {
         console.log(error)
       })
     },
-    getFieldTypeName (code) {
-      switch (code) {
-        case 1:
-          return '文本输入框'
-        case 2:
-          return '密码输入框'
-        case 3:
-          return '日期输入框'
-        case 4:
-          return '整数输入框'
-        case 5:
-          return '浮点输入框'
-        case 6:
-          return '文本域'
-        case 7:
-          return '附件上传'
-        case 8:
-          return '单选框'
-        case 9:
-          return '复选框'
-        case 10:
-          return '下拉框-非级联模式-一次性全查模式'
-        case 11:
-          return '下拉框-非级联模式-ajax动态加载模式'
-        case 12:
-          return '下拉框-级联模式-一次性全查模式'
-        case 13:
-          return '下拉框-级联模式-ajax动态加载模式'
+    deleteBusinessForm (id) {
+      const resData = {
+        ids: id
       }
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$api.businessform.businessFormDelete(resData).then(res => {
+          if (res.code === 0 && res.success) {
+            this.$alert('删除成功')
+            this.getBusinessFormList()
+          } else {
+            this.$alert('删除失败')
+          }
+        }).catch(err => {
+          console.log('删除模板', err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     transDataToIds (data) {
       var idArr = []

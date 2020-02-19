@@ -77,6 +77,27 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/business-form',
+    component: Layout,
+    meta: { title: '业务表单管理', icon: 'form' },
+    redirect: '/business-form/business-list',
+    children: [
+      {
+        path: 'business-list',
+        name: 'BusinessList',
+        component: () => import('@/views/business-form/index'),
+        meta: { title: '业务表单管理', icon: 'form' }
+      },
+      {
+        path: 'business-form-list',
+        name: 'BusinessFormList',
+        component: () => import('@/views/business-form/form-list'),
+        meta: { title: '业务表单配置', icon: 'form' },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/template',
     component: Layout,
     meta: { title: '模板管理', icon: 'form' },
