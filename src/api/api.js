@@ -36,7 +36,19 @@ var api = {
   saveDict: `${baseUrl}/api/tmpdic/save`,
   updateDict: `${baseUrl}/api/tmpdic/update`,
   deleteDict: `${baseUrl}/api/tmpdic/`,
-  getDictDetail: `${baseUrl}/api/tmpdic/`
+  getDictDetail: `${baseUrl}/api/tmpdic/`,
+
+  // 业务表单管理
+  business_list: `${baseUrl}/api/service/query`,
+  business_byId: `${baseUrl}/api/service/`,
+  business_add: `${baseUrl}/api/service/save`,
+  business_edit: `${baseUrl}/api/service/update`,
+  business_delete: `${baseUrl}/api/service/deletes`,
+  business_form_list: `${baseUrl}/api/service_form/findByAll`,
+  business_form_byId: `${baseUrl}/api/service_form/`,
+  business_form_add: `${baseUrl}/api/service_form/create`,
+  business_form_edit: `${baseUrl}/api/service_form/update`,
+  business_form_delete: `${baseUrl}/api/service_form/deletes`
 }
 
 export default api

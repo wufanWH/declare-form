@@ -184,9 +184,12 @@ export default {
         this.pageForm.limit = 10
       }
 
-      const feildRequestData = {
+      let feildRequestData = {
         page: this.pageForm.page,
         pageSize: this.pageForm.limit
+      }
+      if (this.sizerForm.searchContent) {
+        feildRequestData.name = this.sizerForm.searchContent
       }
       this.loading = true
       console.log(feildRequestData)
