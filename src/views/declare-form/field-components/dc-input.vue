@@ -45,7 +45,7 @@ export default {
     changeVal (val) {
       console.log(val)
       let fieldVal = {}
-      fieldVal[this.field.fieldId] = {
+      fieldVal = {
         businessFk: '141234',
         commonValue: this.form.value,
         fieldFk: this.field.fieldId,

@@ -32,10 +32,25 @@ export default {
       }
     }
   },
-  created () {},
+  created () {
+    // this.dataJson = this.getUserData()
+  },
   methods: {
     getVal (data) {
       console.log(data)
+      // this.dataJson.jsDformTmpFieldvalues[data.fieldFk] = data
+      // console.log(this.dataJson)
+    },
+    getUserData () {
+      let templateData = {
+        templateId: this.templateObj.templateId,
+        jsDformTmpFieldvalues: {}
+      }
+      const modelData = this.templateObj.serviceFormFieldModels
+      for (let i = 0; i < modelData.length; i++) {
+        templateData.jsDformTmpFieldvalues[modelData[i].fieldId] = {}
+      }
+      return templateData
     }
   }
 }
