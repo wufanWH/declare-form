@@ -8,6 +8,9 @@ var api = {
   // 后台上传
   uploadFile: `${baseUrl}/managerFiles/api/file4IE/upload`,
 
+  // 申报接口
+  declare_init: `static/bigData.json`,
+  declare_init_value: `static/valueJson.json`,
   // 字段管理
   field_list: `${baseUrl}/api/field/findByAll`,
   field_byId: `${baseUrl}api/field/`,
@@ -15,41 +18,7 @@ var api = {
   field_edit: `${baseUrl}/api/field/update`,
   field_delete_condition: `${baseUrl}/api/field/findByFieldFk`, // 字段删除校验是否使用
   field_delete: `${baseUrl}/api/field/deletes`,
-  all_dict: `${baseUrl}/api/tmpdic/query?parentId=0`,
-
-  // 模板管理
-  template_list: `${baseUrl}/api/template/findByAll`,
-  template_byId: `${baseUrl}/api/template/`,
-  template_add: `${baseUrl}/api/template/create`,
-  template_edit: `${baseUrl}/api/template/update`,
-  template_delete: `${baseUrl}/api/template/deletes`,
-  template_field: `${baseUrl}/api/field/findByFieldType`, // 查询template不同字段类型下的所有字段
-  template_field_list: `${baseUrl}/api/template_field/findByTemplateFk/`,
-  template_field_add: `${baseUrl}/api/template_field/create`, // 模板字段新增
-  template_field_edit: `${baseUrl}/api/template_field/update`, // 模板字段修改
-  template_field_delete: `${baseUrl}/api/template_field/deletes`, // 模板字段删除
-  template_field_clear: `${baseUrl}/api/template_field/clear`, // 模板字段清空
-  // 字典表
-  getDict: `${baseUrl}/api/tmpdic/query`,
-  getDictByCode: `${baseUrl}/api/tmpdic/queryByCode`,
-  gitAllDictByCode: `${baseUrl}/api/tmpdic/queryAllByCode`,
-  saveDict: `${baseUrl}/api/tmpdic/save`,
-  updateDict: `${baseUrl}/api/tmpdic/update`,
-  deleteDict: `${baseUrl}/api/tmpdic/`,
-  getDictDetail: `${baseUrl}/api/tmpdic/`,
-
-  // 业务表单管理
-  business_list: `${baseUrl}/api/service/query`,
-  business_byId: `${baseUrl}/api/service/`,
-  business_add: `${baseUrl}/api/service/save`,
-  business_edit: `${baseUrl}/api/service/update`,
-  business_delete: `${baseUrl}/api/service/deletes`,
-  business_form_list: `${baseUrl}/api/service_form/findByAll`,
-  business_form_byId: `${baseUrl}/api/service_form/`,
-  business_form_add: `${baseUrl}/api/service_form/create`,
-  business_form_edit: `${baseUrl}/api/service_form/update`,
-  business_form_delete: `${baseUrl}/api/service_form/deletes`,
-  business_form_createjson: `${baseUrl}/api/service_form/generateJson/`
+  all_dict: `${baseUrl}/api/tmpdic/query?parentId=0`
 }
 
 export default api

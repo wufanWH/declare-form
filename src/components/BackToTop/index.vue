@@ -22,13 +22,13 @@ export default {
       type: Object,
       default: function () {
         return {
-          right: '50px',
+          right: '20px',
           bottom: '50px',
           width: '40px',
           height: '40px',
           'border-radius': '4px',
           'line-height': '45px',
-          background: '#e7eaf1'
+          background: '#1890ff'
         }
       }
     },
@@ -91,7 +91,7 @@ export default {
 }
 
 .back-to-ceiling:hover {
-  background: #d5dbe7;
+  background: #1890ff;
 }
 
 .fade-enter-active,
@@ -105,7 +105,7 @@ export default {
 }
 
 .back-to-ceiling .Icon {
-  fill: #9aaabf;
+  fill: #ffffff;
   background: none;
 }
 </style>

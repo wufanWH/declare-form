@@ -1,7 +1,7 @@
 {
-  "name": "konyo-form-vue-backend",
+  "name": "declare-form",
   "version": "1.0.0",
-  "description": "动态表单验证",
+  "description": "动态表单",
   "author": "zhoutao <zhoutao@konyo.com.cn>",
   "private": true,
   "scripts": {
@@ -20,11 +20,9 @@
     "file-saver": "^2.0.2",
     "fuse.js": "^3.4.5",
     "js-cookie": "^2.2.1",
-    "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^3.1.0",
-    "sass-loader": "^7.3.1",
     "screenfull": "^5.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
