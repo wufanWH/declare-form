@@ -6,13 +6,13 @@
         </div>
       </div>
       <div v-for="(item, index) in groupData.serviceFormTemplateModels" :key="index">
-         <dc-template v-if="item.isList==2" :template-obj="item" :data-val="dataVal.templateModels[index]"></dc-template>
-         <template-list v-if="item.isList==1" :template-obj="item" :data-val="dataVal.templateModels[index]"></template-list>
+         <dc-template ref="templateModel" v-if="item.isList==2" :template-obj="item" :data-val="dataVal.templateModels[index]" @getVal="getVal"></dc-template>
+         <template-list ref="templateModel" v-if="item.isList==1" :template-obj="item" :data-val="dataVal.templateModels[index]" @getVal="getVal"></template-list>
       </div>
       <div class="button-box">
         <el-button v-if="!isFirst" type="primary" @click="goPrevious">上一步</el-button>
         <el-button v-if="!isLast" type="primary" @click="goNext">下一步</el-button>
-        <el-button v-if="isLast" type="primary" @click="goNext">提交</el-button>
+        <el-button v-if="isLast" type="primary" @click="onSubmit">提交</el-button>
       </div>
    </div>
 </template>
@@ -21,6 +21,12 @@ import dcTemplate from '@/views/declare-form/components/template'
 import templateList from '@/views/declare-form/components/template-list'
 export default {
   components: { dcTemplate, templateList },
+  data () {
+    return {
+      groupVal: {},
+      dataJson: {}
+    }
+  },
   props: {
     groupData: {
       type: Object,
@@ -47,12 +53,36 @@ export default {
       default: 0
     }
   },
-  created () {},
+  created () {
+    this.dataJson = this.getUserData()
+  },
   methods: {
+    getVal (data) {
+      this.dataJson[data.templateId] = data
+    },
+    getUserData () {
+      let templateData = {}
+      const modelData = this.groupData.serviceFormTemplateModels
+      for (let i = 0; i < modelData.length; i++) {
+        templateData[modelData[i].templateId] = {}
+      }
+      return templateData
+    },
+    getGroupData () {
+      this.groupVal = {
+        groupId: this.groupData.groupId,
+        templateModels: []
+      }
+      for (let key in this.dataJson) {
+        this.groupVal.templateModels.push(this.dataJson[key])
+      }
+      console.log(this.groupVal)
+    },
     goPrevious () {
       this.$emit('changeGroup', { page: (this.groupIndex - 1) })
     },
     goNext () {
+      this.getGroupData()
       this.$emit('changeGroup', { page: (this.groupIndex + 1) })
     }
   }

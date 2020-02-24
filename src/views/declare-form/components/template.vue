@@ -33,24 +33,38 @@ export default {
     }
   },
   created () {
-    // this.dataJson = this.getUserData()
+    this.dataJson = this.getUserData()
   },
   methods: {
     getVal (data) {
-      console.log(data)
-      // this.dataJson.jsDformTmpFieldvalues[data.fieldFk] = data
-      // console.log(this.dataJson)
+      this.dataJson[data.fieldFk] = data
+      this.$emit('getVal', this.getUserVal())
     },
     getUserData () {
-      let templateData = {
-        templateId: this.templateObj.templateId,
-        jsDformTmpFieldvalues: {}
-      }
+      let templateData = {}
       const modelData = this.templateObj.serviceFormFieldModels
       for (let i = 0; i < modelData.length; i++) {
-        templateData.jsDformTmpFieldvalues[modelData[i].fieldId] = {}
+        templateData[modelData[i].fieldId] = {
+          commonValue: this.dataVal.jsDformTmpFieldvalues[i].commonValue,
+          fieldFk: modelData[i].fieldId,
+          id: ''
+        }
       }
       return templateData
+    },
+    getUserVal () {
+      let userVal = {
+        templateId: this.templateObj.templateId,
+        jsDformTmpFieldvalues: this.objToArr(this.dataJson)
+      }
+      return userVal
+    },
+    objToArr (obj) {
+      let arrObj = []
+      for (let key in obj) {
+        arrObj.push(obj[key])
+      }
+      return arrObj
     }
   }
 }

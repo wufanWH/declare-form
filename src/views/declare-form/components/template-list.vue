@@ -58,6 +58,13 @@ export default {
       }
       console.log(targetArr)
       return targetArr
+    },
+    getUserVal () {
+      let userVal = {
+        templateId: this.templateObj.templateId,
+        jsDformTmpFieldvalues: []
+      }
+      return userVal
     }
   }
 }

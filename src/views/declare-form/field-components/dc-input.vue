@@ -46,7 +46,6 @@ export default {
       console.log(val)
       let fieldVal = {}
       fieldVal = {
-        businessFk: '141234',
         commonValue: this.form.value,
         fieldFk: this.field.fieldId,
         id: ''
